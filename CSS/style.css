@@ -4,36 +4,49 @@
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Ronzino';
+    src: url('/fonts/Ronzino-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ronzino';
+    src: url('/fonts/Ronzino-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  min-height: 100vh;
+    font-family: 'Ronzino', sans-serif;
 }
 
 header {
-  background: linear-gradient(135deg, #004aad 0%, #0066cc 100%);
-  color: #fff;
-  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #887092 8%, #82a7c5 100%);
+  transition: ;
+  color: #351847;
+  
+  padding: 1.5rem, 1rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0,1rem;
 }
 
 .logo img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
+  width: 50px;
+  height: 100px;
+  object-fit:inherit;
 }
 
 .logo span {
-  font-size: 2.2rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 1.9rem;
+  font-weight:bold;
+  letter-spacing: 6px;
 }
 
 nav ul {
@@ -70,7 +83,7 @@ main {
 }
 
 .welcome-section h1 {
-  color: #004aad;
+  color: #5e4a64;
   font-size: 2.8rem;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -84,7 +97,7 @@ main {
 
 .cat-container {
   position: relative;
-  margin: 0 auto -1rem auto;
+  margin: 0 auto -4.49rem auto;
   width: 200px;
   height: 200px;
   display: inline-block;
@@ -103,7 +116,7 @@ main {
   width: 18px;
   height: 18px;
   background: #000;
-  border-radius: 50%;
+  border-radius: 45%;
   position: absolute;
   transition: transform 0.1s ease-out;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -111,18 +124,19 @@ main {
 }
 
 #left-eye {
-  top: 35%;
-  left: 32%;
+  top: 48%;
+  left: 36%;
 }
 
 #right-eye {
-  top: 35%;
+  top: 48%;
   right: 32%;
 }
 
 .search-bar {
-  margin: 2rem auto 3rem auto;
+  margin: 0 auto 3rem auto;
   max-width: 650px;
+  position: relative;
 }
 
 .search-bar input {
@@ -221,8 +235,9 @@ footer {
   }
 
   .cat-container {
-    width: 250px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto -3.49rem auto;
   }
 
   #left-eye, #right-eye {
@@ -241,5 +256,12 @@ footer {
 
   main {
     padding: 2rem 1rem;
+  }
+}
+
+/* Larger screens - cat needs to go lower */
+@media (min-width: 769px) {
+  .cat-container {
+    margin: 0 auto -4.59rem auto;
   }
 }
