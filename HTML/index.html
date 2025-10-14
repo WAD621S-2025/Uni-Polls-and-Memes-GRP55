@@ -2,25 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Campus Polls & Memes</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catastrophe</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
   <header>
-    <h1>Campus Polls & Memes</h1>
+    <div class="logo">
+      <img src="images/logo.png" alt="Catastrophe Logo">
+      <span>Catastrophe</span>
+    </div>
+
     <nav>
-      <a href="polls.html">Polls</a>
-      <a href="memes.html">Memes</a>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="create_poll.html">Create Poll</a></li>
+        <li><a href="upload_meme.html">Upload Meme</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
     </nav>
   </header>
 
   <main>
-    <h2>Welcome!</h2>
-    <p>Vote on campus polls or upload your favorite memes.</p>
+    <div class="cat-container">
+      <img src="images/searchCat.png" alt="Cat" class="cat-image">
+      <div class="pupil" id="left-eye"></div>
+      <div class="pupil" id="right-eye"></div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search Catastrophe...">
+    </div>
   </main>
 
   <footer>
-    <p>© 2025 Campus Polls & Memes Platform</p>
+    <p>© 2025 Catastrophe | Campus Polls & Memes</p>
   </footer>
+
+  <script>
+    const pupils = document.querySelectorAll('.pupil');
+
+    document.addEventListener('mousemove', (event) => {
+      pupils.forEach(pupil => {
+        const rect = pupil.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const moveX = Math.min(Math.max((event.clientX - centerX) / 30, -8), 8);
+        const moveY = Math.min(Math.max((event.clientY - centerY) / 30, -8), 8);
+
+        pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+    });
+  </script>
+
 </body>
 </html>
