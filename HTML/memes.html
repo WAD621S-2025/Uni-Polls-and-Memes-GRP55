@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memes</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/memes.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Upload Your Meme</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="polls.html">Polls</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="memeForm" enctype="multipart/form-data">
+      <input type="text" name="caption" placeholder="Meme caption" required><br><br>
+      <input type="file" name="image" accept="image/*" required><br><br>
+      <button type="submit">Upload Meme</button>
+    </form>
+
+    <h2>Latest Memes</h2>
+    <div id="memeGallery"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 Campus Polls & Memes Platform</p>
+  </footer>
+</body>
+</html>
