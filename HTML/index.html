@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catastrophe</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Catastrophe - Campus Polls & Memes</title>
+  <link rel="stylesheet" href="/CSS/style.css">
 </head>
 <body>
 
   <header>
     <div class="logo">
-      <img src="images/logo.png" alt="Catastrophe Logo">
-      <span>Catastrophe</span>
+      <img src="/images/logo.png" alt="Catastrophe Logo">
+      <span>atastrophe</span>
     </div>
 
     <nav>
@@ -25,14 +25,37 @@
   </header>
 
   <main>
+    <div class="welcome-section">
+      <h1>Welcome to Catastrophe!</h1>
+      <p>Your campus hub for polls and memes</p>
+    </div>
+
     <div class="cat-container">
-      <img src="images/searchCat.png" alt="Cat" class="cat-image">
+      <img src="/images/searchCat.png" alt="Cat" class="searchCat">
       <div class="pupil" id="left-eye"></div>
       <div class="pupil" id="right-eye"></div>
     </div>
 
     <div class="search-bar">
-      <input type="text" placeholder="Search Catastrophe...">
+      <input type="text" placeholder="🔍 Search Catastrophe...">
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>Create Polls</h3>
+        <p>Engage with your campus community through interactive polls and surveys. Get instant feedback on any topic!</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">😂</span>
+        <h3>Share Memes</h3>
+        <p>Upload and discover the funniest campus memes. Make your friends laugh and go viral on campus!</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">👥</span>
+        <h3>Join Community</h3>
+        <p>Connect with students, share opinions, and stay updated with the latest campus trends and discussions.</p>
+      </div>
     </div>
   </main>
 
@@ -40,22 +63,32 @@
     <p>© 2025 Catastrophe | Campus Polls & Memes</p>
   </footer>
 
-  <script>
-    const pupils = document.querySelectorAll('.pupil');
+<script>
+  const leftEye = document.getElementById('left-eye');
+  const rightEye = document.getElementById('right-eye');
 
-    document.addEventListener('mousemove', (event) => {
-      pupils.forEach(pupil => {
-        const rect = pupil.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+  document.addEventListener('mousemove', (event) => {
+    movePupil(leftEye, event);
+    movePupil(rightEye, event);
+  });
 
-        const moveX = Math.min(Math.max((event.clientX - centerX) / 30, -8), 8);
-        const moveY = Math.min(Math.max((event.clientY - centerY) / 30, -8), 8);
+  function movePupil(pupil, event) {
+    const rect = pupil.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-        pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      });
-    });
-  </script>
+    const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+    
+    const maxDistance = 6;
+    const actualDistance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+    const distance = Math.min(maxDistance, actualDistance / 30);
+
+    const moveX = Math.cos(angle) * distance;
+    const moveY = Math.sin(angle) * distance;
+
+    pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  }
+</script>
 
 </body>
 </html>

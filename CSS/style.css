@@ -1,40 +1,245 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f8f9fa;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
 
 header {
-  background: #004aad;
+  background: linear-gradient(135deg, #004aad 0%, #0066cc 100%);
   color: #fff;
-  padding: 1rem;
-  text-align: center;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-nav a {
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.logo img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.logo span {
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+nav ul li a {
   color: #fff;
-  margin: 0 10px;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+nav ul li a:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
 }
 
 main {
-  padding: 2rem;
+  padding: 3rem 2rem;
   text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-button {
-  background: #004aad;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
+.welcome-section {
+  margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+  color: #004aad;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.welcome-section p {
+  color: #555;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.cat-container {
+  position: relative;
+  margin: 0 auto -1rem auto;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  z-index: 10;
+}
+
+.cat-container img.searchCat {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+}
+
+.pupil {
+  width: 18px;
+  height: 18px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.1s ease-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+
+#left-eye {
+  top: 35%;
+  left: 32%;
+}
+
+#right-eye {
+  top: 35%;
+  right: 32%;
+}
+
+.search-bar {
+  margin: 2rem auto 3rem auto;
+  max-width: 650px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  border: 3px solid #004aad;
+  border-radius: 50px;
+  outline: none;
+  transition: all 0.3s;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.search-bar input:focus {
+  box-shadow: 0 6px 20px rgba(0, 74, 173, 0.3);
+  transform: translateY(-2px);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-color: #004aad;
+}
+
+.feature-card h3 {
+  color: #004aad;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.feature-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: block;
 }
 
 footer {
   text-align: center;
-  padding: 1rem;
-  background: #ddd;
-  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #004aad 0%, #0066cc 100%);
+  margin-top: 5rem;
+  color: white;
+  font-size: 1.1rem;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logo span {
+    font-size: 1.6rem;
+  }
+
+  .logo img {
+    width: 35px;
+    height: 35px;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+
+  nav ul li a {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-section p {
+    font-size: 1.1rem;
+  }
+
+  .cat-container {
+    width: 250px;
+    height: 200px;
+  }
+
+  #left-eye, #right-eye {
+    width: 14px;
+    height: 14px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+  }
+
+  main {
+    padding: 2rem 1rem;
+  }
 }
