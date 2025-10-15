@@ -23,11 +23,10 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, #887092 8%, #82a7c5 100%);
-  transition: ;
+  background: linear-gradient(45deg, #887092 8%, #c5d2ea 100%);
   color: #351847;
   
-  padding: 1.5rem, 1rem;
+  padding: 10px 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -57,25 +56,39 @@ nav ul {
 }
 
 nav ul li a {
-  color: #fff;
+  color: #fcf2f2;
   text-decoration: none;
   font-weight: 500;
   font-size: 1.1rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 12px;
+
+  /* Realistic glass effect */
+  background: rgba(97, 13, 233, 0.06);
+  -webkit-backdrop-filter: blur(100px) saturate(180%);
+  border: 1px t rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 nav ul li a:hover {
-  background: rgba(255,255,255,0.2);
-  transform: translateY(-2px);
+  background: rgba(177, 155, 202, 0.1);
+  border: 1px solid rgba(230, 194, 244, 0.3);
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
 }
+  
+
 
 main {
   padding: 3rem 2rem;
   text-align: center;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2 auto;
 }
 
 .welcome-section {
@@ -86,11 +99,12 @@ main {
   color: #5e4a64;
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  text-shadow: 2px 2px 4px rgba(115, 43, 222, 0.196);
 }
 
 .welcome-section p {
-  color: #555;
+  color: #46384f;
+  text-shadow: 2px 1px 4px #c5b8d2;
   font-size: 1.4rem;
   font-weight: 300;
 }
