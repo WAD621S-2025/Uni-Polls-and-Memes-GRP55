@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Page loaded ✅ Fetching polls...");
   loadPolls();
 });
-$
 function loadPolls() {
   fetch("getPolls.php")
     .then(response => response.json()) 
