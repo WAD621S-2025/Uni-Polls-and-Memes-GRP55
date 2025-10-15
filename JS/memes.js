@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Function to fetch and display all memes
 function loadMemes() {
   fetch("getMemes.php")
     .then(response => response.json())
