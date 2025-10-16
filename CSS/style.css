@@ -1,3 +1,5 @@
+/*global*/
+
 * {
   margin: 0;
   padding: 0;
@@ -5,47 +7,51 @@
 }
 
 @font-face {
-    font-family: 'Ronzino';
-    src: url('/fonts/Ronzino-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Ronzino';
+  src: url('/fonts/Ronzino-Regular.otf') format('opentype');
+  font-weight: normal;
 }
-
 @font-face {
-    font-family: 'Ronzino';
-    src: url('/fonts/Ronzino-Bold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: 'Ronzino';
+  src: url('/fonts/Ronzino-Bold.otf') format('opentype');
+  font-weight: bold;
 }
 
 body {
-    font-family: 'Ronzino', sans-serif;
+  font-family: 'Ronzino', sans-serif;
+  background: white;
+  min-height: 100vh;
 }
 
 header {
-  background: linear-gradient(45deg, #887092 8%, #c5d2ea 100%);
-  color: #351847;
-  padding: 10px 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    height: 25vh;
+    margin: 0;
+    background:linear-gradient(#887a94, #907b9c) ;
+    background-size: 800%, 800%;
+    color: #351847;
+    padding: 10px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
 
 .logo {
   display: flex;
   align-items: center;
-  margin-bottom: 0,1rem;
+  margin-bottom: 0.1rem;
 }
 
 .logo img {
   width: 50px;
   height: 100px;
-  object-fit:inherit;
+  object-fit: inherit;
 }
 
 .logo span {
   font-size: 1.9rem;
-  font-weight:bold;
+  font-weight: bold;
   letter-spacing: 6px;
 }
+
 
 nav ul {
   list-style: none;
@@ -63,29 +69,26 @@ nav ul li a {
   padding: 0.5rem 1rem;
   border-radius: 12px;
   background: rgba(97, 13, 233, 0.06);
+  backdrop-filter: blur(100px) saturate(180%);
   -webkit-backdrop-filter: blur(100px) saturate(180%);
-  border: 1px t rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.37),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.37),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 nav ul li a:hover {
   background: rgba(177, 155, 202, 0.1);
   border: 1px solid rgba(230, 194, 244, 0.3);
-  box-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
 }
-  
-
 
 main {
   padding: 3rem 2rem;
   text-align: center;
   max-width: 1200px;
-  margin: 2 auto;
+  margin: 0 auto;
 }
 
 .welcome-section {
@@ -101,11 +104,12 @@ main {
 
 .welcome-section p {
   color: #46384f;
-  text-shadow: 2px 1px 4px #c5b8d2;
+  text-shadow: 2px 1px 4px rgba(197, 184, 210, 0.5);
   font-size: 1.4rem;
   font-weight: 300;
 }
 
+/* Cat Animation */
 .cat-container {
   position: relative;
   margin: 0 auto -4.49rem auto;
@@ -120,7 +124,7 @@ main {
   height: 100%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
 }
 
 .pupil {
@@ -130,7 +134,7 @@ main {
   border-radius: 45%;
   position: absolute;
   transition: transform 0.1s ease-out;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
 
@@ -144,6 +148,7 @@ main {
   right: 32%;
 }
 
+/*Search Bara*/
 .search-bar {
   margin: 0 auto 3rem auto;
   max-width: 650px;
@@ -154,12 +159,12 @@ main {
   width: 100%;
   padding: 1.2rem 2rem;
   font-size: 1.1rem;
-  border: 3px solid #004aad;
+  border: 1.6px solid #d8cbdc;
   border-radius: 50px;
   outline: none;
   transition: all 0.3s;
   background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar input:focus {
@@ -167,6 +172,9 @@ main {
   transform: translateY(-2px);
 }
 
+/* ===========================
+   FEATURE CARDS
+   =========================== */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -178,14 +186,14 @@ main {
   background: white;
   padding: 2.5rem;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
   border: 2px solid transparent;
 }
 
 .feature-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-color: #004aad;
 }
 
@@ -207,77 +215,24 @@ main {
   display: block;
 }
 
+/* ===========================
+   FOOTER
+   =========================== */
 footer {
   text-align: center;
   padding: 2rem;
-   background: linear-gradient(45deg, #887092 8%, #c5d2ea 100%);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
   margin-top: 5rem;
-  color: white;
+  color: #351847;
   font-size: 1.1rem;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .logo span {
-    font-size: 1.6rem;
-  }
-
-  .logo img {
-    width: 35px;
-    height: 35px;
-  }
-
-  nav ul {
-    gap: 1rem;
-  }
-
-  nav ul li a {
-    font-size: 0.95rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .welcome-section h1 {
-    font-size: 2rem;
-  }
-
-  .welcome-section p {
-    font-size: 1.1rem;
-  }
-
-  .cat-container {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto -3.49rem auto;
-  }
-
-  #left-eye, #right-eye {
-    width: 14px;
-    height: 14px;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .feature-card {
-    padding: 2rem;
-  }
-
-  main {
-    padding: 2rem 1rem;
-  }
-}
-
-/* Larger screens - cat needs to go lower */
-@media (min-width: 769px) {
-  .cat-container {
-    margin: 0 auto -4.59rem auto;
-  }
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
 }
 
 
+/* Login*/
 .login-main {
   min-height: 80vh;
   display: flex;
@@ -405,12 +360,71 @@ footer {
   color: #5e4a64;
 }
 
+
+/*Responsiveness*/
 @media (max-width: 768px) {
+  .logo span {
+    font-size: 1.6rem;
+  }
+
+  .logo img {
+    width: 35px;
+    height: 35px;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+
+  nav ul li a {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-section p {
+    font-size: 1.1rem;
+  }
+
+  .cat-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto -3.49rem auto;
+  }
+
+  #left-eye,
+  #right-eye {
+    width: 14px;
+    height: 14px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+  }
+
+  main {
+    padding: 2rem 1rem;
+  }
+
   .login-container {
     padding: 2rem;
   }
 
   .login-container h1 {
     font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .cat-container {
+    margin: 0 auto -4.59rem auto;
   }
 }
