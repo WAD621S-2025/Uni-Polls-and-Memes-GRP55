@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Catastrophe</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../images/logo.png" alt="Catastrophe Logo">
+      <span>atastrophe</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="polls.html">Polls</a></li>
+        <li><a href="memes.html">Memes</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="profile.html">
+          <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display: none;">
+          <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder">
+        </a>
+        <a href="logout.html" class="logout-link">Logout</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="profile-main">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-photo-container">
+        <img src="../images/emptyProfile.webp" alt="Profile Placeholder" id="profile-photo-placeholder" class="profile-photo-placeholder">
+        <img id="profile-photo" class="profile-photo" style="display: none;">
+        <button class="photo-upload-btn" onclick="document.getElementById('photo-upload').click()">📷</button>
+        <input type="file" id="photo-upload" class="photo-upload-input" accept="image/*">
+      </div>
+
+      <h1 id="display-name" class="profile-name"><span class="empty-state">Add your name</span></h1>
+      <p id="display-username" class="profile-username"><span class="empty-state">Add username</span></p>
+      <p id="display-email" class="profile-email"><span class="empty-state">Add email</span></p>
+      <p id="display-bio" class="profile-bio"><span class="empty-state">Add a bio to tell others about yourself</span></p>
+
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Polls Created</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Memes Shared</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Votes Cast</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Followers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-sections">
+      <!-- Personal Information -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2 class="section-title">Personal Information</h2>
+          <button id="edit-info-btn" class="edit-btn">Edit Profile</button>
+        </div>
+
+        <div id="info-display" class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Full Name:</span>
+            <span class="info-value" id="show-name">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Username:</span>
+            <span class="info-value" id="show-username">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-value" id="show-email">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Phone:</span>
+            <span class="info-value" id="show-phone">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Campus:</span>
+            <span class="info-value" id="show-campus">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Major:</span>
+            <span class="info-value" id="show-major">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Year:</span>
+            <span class="info-value" id="show-year">Not provided</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Bio:</span>
+            <span class="info-value" id="show-bio">Not provided</span>
+          </div>
+        </div>
+
+        <div id="info-edit" class="info-grid" style="display: none;">
+          <div class="info-item">
+            <span class="info-label">Full Name:</span>
+            <input type="text" id="edit-name" class="info-input" placeholder="Enter your full name">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Username:</span>
+            <input type="text" id="edit-username" class="info-input" placeholder="@username">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <input type="email" id="edit-email" class="info-input" placeholder="your.email@university.edu">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Phone:</span>
+            <input type="tel" id="edit-phone" class="info-input" placeholder="+1 (555) 123-4567">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Campus:</span>
+            <input type="text" id="edit-campus" class="info-input" placeholder="Your university name">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Major:</span>
+            <input type="text" id="edit-major" class="info-input" placeholder="Your major">
+          </div>
+          <div class="info-item">
+            <span class="info-label">Year:</span>
+            <select id="edit-year" class="info-input">
+              <option value="">Select year</option>
+              <option value="Freshman">Freshman</option>
+              <option value="Sophomore">Sophomore</option>
+              <option value="Junior">Junior</option>
+              <option value="Senior">Senior</option>
+              <option value="Graduate">Graduate</option>
+            </select>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Bio:</span>
+            <textarea id="edit-bio" class="info-input info-textarea" placeholder="Tell others about yourself..."></textarea>
+          </div>
+          <div class="info-item" style="grid-column: 1 / -1;">
+            <span></span>
+            <div>
+              <button class="edit-btn cancel-btn">Cancel</button>
+              <button class="edit-btn save-btn">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Catastrophe | Campus Polls & Memes</p>
+  </footer>
+
+  <script src="../JS/profile.js"></script>
+</body>
+</html>
