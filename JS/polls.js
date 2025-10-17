@@ -105,7 +105,7 @@ function loadPolls() {
         question.textContent = poll.question;
         pollBox.appendChild(question);
 
-        ["option1", "option2", "option3", "option4"].forEach(optionKey => {
+        ["option_a", "option_b", "option_c", "option_d"].forEach(optionKey => {
           const optionText = poll[optionKey];
           if (optionText) {
             const button = document.createElement("button");
