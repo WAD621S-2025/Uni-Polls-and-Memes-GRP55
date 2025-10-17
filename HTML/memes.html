@@ -31,3 +31,173 @@
   </footer>
 </body>
 </html>
+
+<style>
+  body {
+  font-family: 'Ronzino', sans-serif;
+  background: #fff;
+  color: #351847;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  height: 25vh;
+  background: linear-gradient(#887a94, #907b9c);
+  color: #351847;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  font-size: 2.3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px rgba(81, 61, 94, 0.2);
+  margin-bottom: 1rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav a {
+  color: #fcf2f2;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(97, 13, 233, 0.06);
+  border: 1px solid rgba(166, 87, 190, 0.174);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.37),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(104, 73, 138, 0.1);
+  border: 1px solid rgba(90, 50, 112, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Main Section */
+main {
+  flex: 1;
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Upload Form */
+#memeForm {
+  background: rgb(250, 250, 250);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+  transition: transform 0.3s ease;
+}
+
+#memeForm:hover {
+  transform: translateY(-5px);
+}
+
+#memeForm input[type="text"],
+#memeForm input[type="file"] {
+  width: 80%;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s;
+  font-family: 'Ronzino', sans-serif;
+}
+
+#memeForm input:focus {
+  outline: none;
+  border-color: #887092;
+  box-shadow: 0 0 0 3px rgba(136, 112, 146, 0.1);
+}
+
+/* Upload Button */
+#memeForm button {
+  background: linear-gradient(45deg, #887092, #c5d2ea);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Ronzino', sans-serif;
+}
+
+#memeForm button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(136, 112, 146, 0.3);
+}
+
+/* Meme Gallery */
+#memeGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+#memeGallery .meme-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+#memeGallery .meme-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(96, 73, 105, 0.3);
+}
+
+#memeGallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.meme-caption {
+  padding: 1rem;
+  color: #5e4a64;
+  font-size: 1.1rem;
+}
+
+/* Headings */
+h2 {
+  color: #5e4a64;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 3px rgba(197, 184, 210, 0.5);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: #382940;
+  font-size: 1.1rem;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
+}
+</style>
