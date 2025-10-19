@@ -6,8 +6,8 @@ header('Access-Control-Allow-Origin: *');
 
 $host = 'localhost';
 $db   = 'campus_polls_db';
-$user = 'YOUR_DB_USERNAME';    // <-- UPDATE THIS!
-$pass = 'YOUR_DB_PASSWORD';    // <-- UPDATE THIS!
+$user = 'root';   
+$pass = '';   
 $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -15,10 +15,7 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 / --- Execute Query: No Aliases Needed! ---
-try {
-    // We select the columns directly. The keys in the resulting JSON will match 
-    // the column names, which match your JavaScript's expected keys.
-    $sql = "
+try 
         SELECT 
             poll_id AS id,        
             question, 
