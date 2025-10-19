@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - Catastrophe</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/logout.css"> 
+    <script src="/JS/darkmode.js" defer></script>
+    <script src="../JS/logout.js" defer></script>
+</head>
+<body>
+
+    <button id="theme-switch" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M480-107q-155 0-264-109T107-480q0-155 109-264t264-109q9 0 20.5.5T527-850q-40 38-55 85t-15 82q0 85 63 155.5T686-457q52 0 91.5-19t71.5-53q2 13 3 28.5t1 20.5q0 155-109 264T480-107Z"/>
+        </svg>
+    </button>
+
+    <header>
+        <div class="logo">
+            <img src="../images/logo.png" alt="Catastrophe Logo">
+            <span>atastrophe</span>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="polls.html">Polls</a></li>
+                <li><a href="memes.html">Memes</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+            
+            <div class="nav-right">
+                </div>
+        </nav>
+    </header>
+
+    <main class="logout-main">
+        <div class="logout-container">
+            <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 -960 960 960" width="64px">
+                <path d="M280-240q-33 0-56.5-23.5T200-320v-320q0-33 23.5-56.5T280-720h240v80H280v320h240v80H280ZM520-440l-56-56 142-144H560v-80h240v80H694l-142 144 56 56-168 168v-232H520Z"/>
+            </svg>
+            <h1>Logging Out?</h1>
+            <p class="subtitle">You'll need to sign in again to access your personalized features.</p>
+
+            <button id="confirmLogoutBtn" class="logout-btn">
+                Confirm Logout
+            </button>
+            <a href="index.html" class="cancel-link">
+                Stay Logged In
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Catastrophe 2025 © | Campus Polls & Memes</p>
+    </footer>
+
+</body>
+</html>

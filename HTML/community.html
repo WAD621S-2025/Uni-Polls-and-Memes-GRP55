@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community - Catastrophe</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+    <script src="/JS/darkmode.js" defer></script>
+      <script src="../JS/community.js"></script>
+
+</head>
+<body>
+
+  <!-- Dark Mode Toggle Button -->
+  <button id="theme-switch" aria-label="Toggle dark mode">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+      <path d="M480-107q-155 0-264-109T107-480q0-155 109-264t264-109q9 0 20.5.5T527-850q-40 38-55 85t-15 82q0 85 63 155.5T686-457q52 0 91.5-19t71.5-53q2 13 3 28.5t1 20.5q0 155-109 264T480-107Z"/>
+    </svg>
+  </button>
+
+  <header>
+    <div class="logo">
+      <img src="../images/logo.png" alt="Catastrophe Logo">
+      <span>atastrophe</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="polls.html">Polls</a></li>
+        <li><a href="memes.html">Memes</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+      
+      <div class="nav-right">
+        <a href="profile.html" id="profile-link">
+          <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display: none;">
+          <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder">
+        </a>
+        <a href="logout.html" class="logout-link">Logout</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="community-main">
+    <div class="welcome-section">
+      <h1>Campus Community</h1>
+      <p>Connect, share ideas, stay updated, feel at home!</p>
+    </div>
+
+    <!-- Community Stats -->
+    <div class="community-stats">
+      <div class="stat-card">
+        <span class="stat-icon">👥</span>
+        <h3 id="stat-members">0</h3>
+        <p>Members</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">💬</span>
+        <h3 id="stat-discussions">0</h3>
+        <p>Discussions</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📊</span>
+        <h3 id="stat-polls">0</h3>
+        <p>Polls</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">😂</span>
+        <h3 id="stat-memes">0</h3>
+        <p>Memes Shared</p>
+      </div>
+    </div>
+
+    <!-- Post Something -->
+    <div class="create-post-section">
+      <h2>Share with the Community</h2>
+      <form id="postForm" class="post-form">
+        <textarea id="postContent" placeholder="What's on your mind? Share a thought, ask a question, or start a discussion..." required></textarea>
+        <div class="post-actions">
+          <button type="button" class="action-btn" onclick="window.location.href='polls.html'">
+             Create 
+          </button>
+          <button type="button" class="action-btn" onclick="window.location.href='memes.html'">
+            Share 
+          </button>
+          <button type="submit" class="submit-post-btn">Post</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Community Feed -->
+    <div class="community-feed">
+      <h2>Recent Activity</h2>
+      
+      <div class="feed-filters">
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="discussions">Discussions</button>
+        <button class="filter-btn" data-filter="polls">Polls</button>
+        <button class="filter-btn" data-filter="memes">Memes</button>
+      </div>
+        <div id="feedContainer" class="feed-container">
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Catastrophe 2025 © | Campus Polls & Memes</p>
+  </footer>
+
+
+
+</body>
+</html>

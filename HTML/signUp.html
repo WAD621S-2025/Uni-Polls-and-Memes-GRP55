@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Catastrophe</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/signup.css"> 
+  <script src="/JS/darkmode.js" defer></script>
+  <script src="../JS/signup.js" defer></script>
+</head>
+<body>
+
+  <button id="theme-switch" aria-label="Toggle dark mode">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+      <path d="M480-107q-155 0-264-109T107-480q0-155 109-264t264-109q9 0 20.5.5T527-850q-40 38-55 85t-15 82q0 85 63 155.5T686-457q52 0 91.5-19t71.5-53q2 13 3 28.5t1 20.5q0 155-109 264T480-107Z"/>
+    </svg>
+  </button>
+
+  <header>
+    <div class="logo">
+      <img src="../images/logo.png" alt="Catastrophe Logo">
+      <span>atastrophe</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="polls.html">Polls</a></li>
+        <li><a href="memes.html">Memes</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+      
+      <div class="nav-right">
+        </div>
+    </nav>
+  </header>
+
+  <main class="signup-main">
+    <div class="signup-container">
+      <h1>Create Your Account</h1>
+      <p class="subtitle">Join the campus community in minutes!</p>
+
+      <form id="signupForm">
+        <div class="input-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="email">Campus Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="input-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+
+        <button type="submit" class="signup-btn">
+          Sign Up
+        </button>
+      </form>
+
+      <div class="login-prompt">
+        Already have an account? <a href="login.html">Login here</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Catastrophe 2025 © | Campus Polls & Memes</p>
+  </footer>
+
+</body>
+</html>

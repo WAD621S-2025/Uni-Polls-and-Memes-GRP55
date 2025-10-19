@@ -2,23 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Campus Polls</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/polls.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polls - Catastrophe</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <script src="/JS/darkmode.js" defer></script>
+  <script src="../JS/polls.js" defer></script>
 </head>
 <body>
+  <button id="theme-switch" aria-label="Toggle dark mode">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+      <path d="M480-107q-155 0-264-109T107-480q0-155 109-264t264-109q9 0 20.5.5T527-850q-40 38-55 85t-15 82q0 85 63 155.5T686-457q52 0 91.5-19t71.5-53q2 13 3 28.5t1 20.5q0 155-109 264T480-107Z"/>
+    </svg>
+  </button>
+
   <header>
-    <h1>Campus Polls</h1>
+    <div class="logo">
+      <img src="../images/logo.png" alt="Catastrophe Logo">
+      <span>atastrophe</span>
+    </div>
+
     <nav>
-      <a href="index.html">Home</a>
-      <a href="memes.html">Memes</a>
+      <ul>
+        <li><a href="index.html">Home </a></li>
+        <li><a href="polls.html" class="active">Polls</a></li>
+        <li><a href="memes.html">Memes</a></li>  
+        <li><a href="community.html">Community</a></li>
+      </ul>
+
+      <div class="nav-right">
+          <a href="profile.html" id="profile-link">
+          <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display: none;">
+          <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder">
+        </a>
+        <a href="logout.html" class="logout-link">Logout</a>
+      </div>
     </nav>
   </header>
 
-  <main id="pollContainer"></main>
+  <main class="polls-main">
+    <section class="create-poll-section">
+      <h2>Create a New Poll</h2>
+      <form id="createPollForm">
+        <input type="text" id="pollQuestion" placeholder="Enter your question..." required>
+        <div id="optionsContainer">
+          <input type="text" class="pollOption" placeholder="Option 1" required>
+          <input type="text" class="pollOption" placeholder="Option 2" required>
+        </div>
+        <button type="button" id="addOptionBtn">Add Option</button>
+        <button type="submit" class="create-btn">Create Poll</button>
+      </form>
+    </section>
+
+    <section class="polls-list-section">
+      <h2>Active Polls</h2>
+      <div id="pollsList" class="polls-list"></div>
+    </section>
+  </main>
 
   <footer>
-    <p>© 2025 Campus Polls & Memes Platform</p>
+    <p>Catastrophe 2025 © | Campus Polls & Memes</p>
   </footer>
 </body>
 </html>

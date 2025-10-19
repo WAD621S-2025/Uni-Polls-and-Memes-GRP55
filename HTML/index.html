@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,41 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catastrophe - Campus Polls & Memes</title>
   <link rel="stylesheet" href="../CSS/style.css">
-
+  <script src="/JS/darkmode.js" defer></script>
 </head>
 <body>
-
+  <!-- Dark Mode Button -->
+  <button id="theme-switch" aria-label="Toggle dark mode">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+      <path d="M480-107q-155 0-264-109T107-480q0-155 109-264t264-109q9 0 20.5.5T527-850q-40 38-55 85t-15 82q0 85 63 155.5T686-457q52 0 91.5-19t71.5-53q2 13 3 28.5t1 20.5q0 155-109 264T480-107Z"/>
+    </svg>
+  </button>
 
   <header>
-
-   
     <div class="logo">
       <img src="../images/logo.png" alt="Catastrophe Logo">
       <span>atastrophe</span>
     </div>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="polls.html">Polls</a></li>
-      <li><a href="memes.html">Memes</a></li>
-    
-    </ul>
-    
-    <div class="nav-right">
-      <a href="profile.html" id="profile-link">
-        <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display: none;">
-        <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder" ra>
-      </a>
-            <a href="logout.html" class="logout-link">Logout</a>
-    </div>
-  </nav>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="polls.html">Polls</a></li>
+        <li><a href="memes.html">Memes</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+      
+      <div class="nav-right">
+        <a href="profile.html" id="profile-link">
+          <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display:none">
+          <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder">
+        </a>
+        <a href="logout.html" class="logout-link">Logout</a>
+      </div>
+    </nav>
   </header>
 
   <main>
     <div class="welcome-section">
       <h1>Welcome to Catastrophe!</h1>
-      <p>Your campus hub for polls and memes</p>
+      <p>Your purrrsonal polls and meme hub</p>
     </div>
 
     <div class="cat-container">
@@ -52,57 +56,64 @@
       <input type="text" placeholder="Search Catastrophe...">
     </div>
 
-    <div class="features">
-      <div class="feature-card">
-        <img src="../images/polls-removebg-preview.png" alt="polls" class="polls">
-        <h3>Create Polls</h3>
-        <p>Engage with your campus community through interactive polls and surveys. Get instant feedback on any topic!</p>
-      </div>
-      <div class="feature-card">
-        <img src="../images/ghost-removebg-preview.png" alt="Memes" class="memes">
-        <h3>Share Memes</h3>
-        <p>Upload and discover the funniest campus memes. Make your friends laugh and go viral on campus!</p>
-      </div>
-      <div class="feature-card">
-       <img src="../images/shout-removebg-preview.png" alt="Community" class="community"> 
-        <h3>Join Community</h3>
-        <p>Connect with students, share opinions, and stay updated with the latest campus trends and discussions.</p>
-      </div>
-    </div>
+    <a href="polls.html" class="feature-card-link">
+        <div class="feature-card">
+          <img src="../images/polls-removebg-preview.png" alt="polls" class="polls">
+          <h3>Create Polls</h3>
+          <p>Create polls and surveys. Get instant feedback on any topic!</p>
+          <span class="card-action">Start Polling</span>
+        </div>
+      </a>
+
+   <a href="memes.html" class="feature-card-link">
+        <div class="feature-card">
+          <img src="../images/ghost-removebg-preview.png" alt="Memes" class="memes">
+          <h3>Share Memes</h3>
+          <p>Got an inside joke you wanna share?
+          Upload and discover the funniest memes on campus. Make your friends laugh and go viral!</p>
+          <span class="card-action">Share Memes</span>
+        </div>
+      </a>      
+
+   <a href="community.html" class="feature-card-link">
+        <div class="feature-card">
+          <img src="../images/shout-removebg-preview.png" alt="Community" class="community"> 
+          <h3>Community</h3>
+          <p>Connect with people who just get you. Join a community now! </p>
+          <span class="card-action">Join Now!</span>
+        </div>
+      </a>
   </main>
   
-
   <footer>
-    <p>© 2025 Catastrophe | Campus Polls & Memes</p>
+    <p>Catastrophe 2025 © | Campus Polls & Memes</p>
   </footer>
 
-<script>
-  const leftEye = document.getElementById('left-eye');
-  const rightEye = document.getElementById('right-eye');
+  <!-- Cat Eye Tracking Script -->
+  <script>
+    const leftEye = document.getElementById('left-eye');
+    const rightEye = document.getElementById('right-eye');
 
-  document.addEventListener('mousemove', (event) => {
-    movePupil(leftEye, event);
-    movePupil(rightEye, event);
-  });
+    document.addEventListener('mousemove', (event) => {
+      movePupil(leftEye, event);
+      movePupil(rightEye, event);
+    });
 
-  function movePupil(pupil, event) {
-    const rect = pupil.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    function movePupil(pupil, event) {
+      const rect = pupil.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-    const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
-    
-    const maxDistance = 6;
-    const actualDistance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
-    const distance = Math.min(maxDistance, actualDistance / 30);
+      const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+      
+      const maxDistance = 6;
+      const actualDistance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+      const distance = Math.min(maxDistance, actualDistance / 30);
 
-    const moveX = Math.cos(angle) * distance;
-    const moveY = Math.sin(angle) * distance;
+      const moveX = Math.cos(angle) * distance;
+      const moveY = Math.sin(angle) * distance;
 
-    pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  }
-</script>
- 
-
-</body>
-</html>
+      pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    }
+  </script>
+  
