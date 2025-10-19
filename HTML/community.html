@@ -75,18 +75,13 @@
     <!-- Post -->
     <div class="create-post-section">
       <h2>Share with the Community</h2>
-      <form id="postForm" class="post-form">
-        <textarea id="postContent" placeholder="What's on your mind? Share a thought, ask a question, or start a discussion..." required></textarea>
-        <div class="post-actions">
-          <button type="button" class="action-btn" onclick="window.location.href='polls.html'">
-             Create 
-          </button>
-          <button type="button" class="action-btn" onclick="window.location.href='memes.html'">
-            Share 
-          </button>
-          <button type="submit" class="submit-post-btn">Post</button>
-        </div>
-      </form>
+    <form id="postForm">
+    <textarea id="postContent" name="content" placeholder="Share your thoughts..."></textarea>
+    
+    <input type="hidden" name="postType" value="discussions"> 
+    
+    <button type="submit" class="submit-post-btn">Post</button>
+    </form>
     </div>
 
     <!-- Community Feed -->

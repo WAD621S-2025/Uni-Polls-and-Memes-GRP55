@@ -23,14 +23,14 @@
 
     <nav>
       <ul>
-        <li><a href="index.html">Home </a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="polls.html" class="active">Polls</a></li>
         <li><a href="memes.html">Memes</a></li>  
         <li><a href="community.html">Community</a></li>
       </ul>
 
       <div class="nav-right">
-          <a href="profile.html" id="profile-link">
+        <a href="profile.html" id="profile-link">
           <img src="" alt="Profile" class="profile-pic" id="nav-profile-pic" style="display: none;">
           <img src="../images/emptyProfile.webp" alt="Profile Placeholder" class="profile-pic" id="nav-profile-placeholder">
         </a>
@@ -40,25 +40,39 @@
   </header>
 
   <main class="polls-main">
+    <!-- Create Poll Section -->
     <section class="create-poll-section">
       <h2>Create a New Poll</h2>
       <form id="createPollForm">
-        <input type="text" id="pollQuestion" placeholder="Enter your question..." required>
-        <div id="optionsContainer">
-          <input type="text" class="pollOption" placeholder="Option 1" required>
-          <input type="text" class="pollOption" placeholder="Option 2" required>
+        <div class="form-group">
+          <label for="pollQuestion">Poll Question</label>
+          <input type="text" id="pollQuestion" placeholder="Anything you want to ask?" required>
         </div>
-        <button type="button" id="addOptionBtn">Add Option</button>
-        <button type="submit" class="create-btn">Create Poll</button>
+        
+        <div class="form-group">
+          <label>Poll Options</label>
+          <div id="optionsContainer">
+            <input type="text" class="pollOption" placeholder="Option 1" required>
+            <input type="text" class="pollOption" placeholder="Option 2" required>
+          </div>
+          <button type="button" id="addOptionBtn" class="add-option-btn">
+            <span>+</span> Add Another Option
+          </button>
+        </div>
+
+        <button type="submit" class="create-poll-btn">Create Poll</button>
       </form>
     </section>
 
+    <!-- Active Polls Section -->
     <section class="polls-list-section">
-      <h2>Active Polls</h2>
+      <div class="section-header">
+        <h2>Active Polls</h2>
+        <div class="poll-stats">
+          <span class="stat-badge" id="total-polls-badge"></span>
+        </div>
+      </div>
       <div id="pollsList" class="polls-list"></div>
-      <button class="poll-btn">Vote</button> 
-      <button class="poll-btn">View Results</button> 
-
     </section>
   </main>
 

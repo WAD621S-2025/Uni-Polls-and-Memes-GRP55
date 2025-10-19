@@ -1,113 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Loading memes...");
-  loadMemes();
-});
-function loadMemes() {
-  fetch("getMemes.php")
-    .then(response => response.json())
-    .then(memes => {
-      const container = document.getElementById("memes");
-      container.innerHTML = "";
+    const form = document.getElementById("memeForm");
+    const gallery = document.getElementById("memeGallery");
 
-      if (memes.length === 0) {
-        container.innerHTML = "<p>No memes found.</p>";
-        return;
-      }
+    async function loadMemes() {
+        try {
+            const res = await fetch("getMemes.php");
+            const memes = await res.json(); 
 
-      memes.forEach(meme => {
-        const memeBox = document.createElement("div");
-        memeBox.classList.add("meme-box");
+            gallery.innerHTML = "";
 
-        const img = document.createElement("img");
-        img.src = meme.image_path;
-        img.alt = "Meme image";
+            if (!memes || memes.length === 0) {
+                gallery.innerHTML = `<div class="empty-gallery-state">No memes yet. Upload one!</div>`;
+                return;
+            }
 
-        const caption = document.createElement("p");
-        caption.textContent = meme.caption;
+            memes.forEach(meme => addMemeCard(meme));
+        } catch (err) {
+            console.error("Error loading memes:", err);
+            gallery.innerHTML = `<div class="empty-gallery-state">Could not load memes.</div>`;
+        }
+    }
 
-        memeBox.appendChild(img);
-        memeBox.appendChild(caption);
-        container.appendChild(memeBox);
-      });
-    })
-    .catch(err => {
-      console.error("Failed to load memes:", err);
-      document.getElementById("memes").innerHTML =
-        "<p>Could not load memes right now. Please try again later.</p>";
-    });
-}
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Memes page ready 🧠 Loading memes...");
-  loadMemes();
+    function addMemeCard(meme) {
+        const card = document.createElement("div");
+        card.classList.add("meme-card");
 
-  // Set up form submission listener
-  const uploadForm = document.getElementById("uploadForm");
-  if (uploadForm) {
-    uploadForm.addEventListener("submit", handleUpload);
-  }
-});
-
-function loadMemes() {
-  fetch("getMemes.php")
-    .then(response => response.json())
-    .then(memes => {
-      const container = document.getElementById("memes");
-      container.innerHTML = "";
-
-      if (!memes || memes.length === 0) {
-        container.innerHTML = "<p>No memes available yet.</p>";
-        return;
-      }
-
-      memes.forEach(meme => {
-        const memeBox = document.createElement("div");
-        memeBox.classList.add("meme-box");
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add("meme-image-container");
 
         const img = document.createElement("img");
+        img.classList.add("meme-image");
         img.src = meme.image_path;
         img.alt = meme.caption || "Meme";
 
+        imgContainer.appendChild(img);
+
+        const content = document.createElement("div");
+        content.classList.add("meme-content");
+
         const caption = document.createElement("p");
+        caption.classList.add("meme-caption");
         caption.textContent = meme.caption || "";
 
-        memeBox.appendChild(img);
-        memeBox.appendChild(caption);
-        container.appendChild(memeBox);
-      });
-    })
-    .catch(err => {
-      console.error("Error loading memes:", err);
-      document.getElementById("memes").innerHTML =
-        "<p>⚠️ Could not load memes. Please try again later.</p>";
+        content.appendChild(caption);
+        card.appendChild(imgContainer);
+        card.appendChild(content);
+
+        gallery.prepend(card);
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Uploading...";
+
+        try {
+            const res = await fetch("uploadMeme.php", {
+                method: "POST",
+                body: data
+            });
+
+            const result = await res.json();
+
+            if (result && result.image_path) {
+                alert("Meme uploaded successfully!");
+                form.reset();
+
+                const newMeme = {
+                    image_path: result.image_path,
+                    caption: result.caption || ''
+                };
+
+                addMemeCard(newMeme);
+
+            } else {
+                const errorMessage = result.error || "Upload failed.";
+                alert("Upload failed: " + errorMessage);
+            }
+
+        } catch (err) {
+            console.error("Upload error:", err);
+            alert("Something went wrong while uploading your meme.");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Upload Meme";
+        }
     });
-}
 
-// Function to handle meme uploads
-function handleUpload(e) {
-  e.preventDefault(); // Stop the page from refreshing
-
-  const form = e.target;
-  const formData = new FormData(form);
-
-  // Debug message
-  console.log("Uploading meme...");
-
-  fetch("uploadMeme.php", {
-    method: "POST",
-    body: formData
-  })
-    .then(response => response.text())
-    .then(result => {
-      if (result.trim().toLowerCase() === "success") {
-        alert("✅ Meme uploaded successfully!");
-        form.reset(); // Clear form fields
-        loadMemes();  // Reload meme list
-      } else {
-        alert("⚠️ Upload failed: " + result);
-      }
-    })
-    .catch(error => {
-      console.error("Upload error:", error);
-      alert("❌ Something went wrong while uploading your meme.");
-    });
-}
+    loadMemes();
+});

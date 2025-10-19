@@ -6,12 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function performLogout() {
+async function performLogout() {
+    try {
+        const response = await fetch('logout.php', {
+            method: 'POST'
+        });
 
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userName'); 
+        const result = await response.json();
 
-    alert("You have been successfully logged out!");
-
-    window.location.href = 'login.html'; 
+        if (result.success) {
+            alert("You have been successfully logged out!");
+            window.location.href = 'login.html';
+        } else {
+            alert(result.message || "Logout failed on the server.");
+        }
+    } catch (error) {
+        console.error('Logout Error:', error);
+        alert("A network error occurred during logout. Please try again.");
+    }
 }
