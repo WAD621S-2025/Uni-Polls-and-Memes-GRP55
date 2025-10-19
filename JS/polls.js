@@ -1,19 +1,64 @@
-// DOM Elements
+function handlePollCreation(e) {
+    e.preventDefault();
+
+    
+    const question = document.getElementById('pollQuestion').value.trim();
+    const optionInputs = document.querySelectorAll('.pollOption');
+    const options = Array.from(optionInputs)
+        .map(input => input.value.trim())
+        .filter(v => v !== '');
+
+    if (!question) return alert('Please enter a poll question.');
+    if (options.length < 2) return alert('Please add at least two options.');
+
+
+const username = localStorage.getItem("username") || "Anonymous";
+const newPoll = {
+    id: Date.now(),
+    question,
+    options,
+    votes: new Array(options.length).fill(0),
+    totalVotes: 0,
+    createdAt: new Date().toISOString(),
+    createdBy: username
+};
+
+
+        allPolls.unshift(newPoll);
+    localStorage.setItem("polls", JSON.stringify(allPolls));
+     const communityPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+    communityPosts.unshift({
+        id: newPoll.id,
+        user: "Celine (Admin)",
+        content: question,
+        time: new Date().toLocaleString(),
+        type: "polls",
+        votes: 0,
+        comments: 0
+    });
+    localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
+
+    form.reset();
+    resetOptionsContainer();
+    displayPolls();
+    updateCommunityStats();
+
+
+    window.dispatchEvent(new Event('storage'));
+
+    alert('Poll created successfully!');
+
+    
+}
+
 const form = document.getElementById('createPollForm');
 const pollsList = document.getElementById('pollsList');
 const addOptionBtn = document.getElementById('addOptionBtn');
 const optionsContainer = document.getElementById('optionsContainer');
 const pollsStatElement = document.getElementById('stat-polls');
 
-const API_ENDPOINTS = {
-    GET_POLLS: 'getPolls.php',
-    CREATE_POLL: 'createPoll.php',
-    RECORD_VOTE: 'recordVote.php',
-    GET_STATS: 'getPollStats.php'
-};
-
-let allPolls = [];
-let userVotes = {};
+let allPolls = JSON.parse(localStorage.getItem("polls")) || [];
+let userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
 
 document.addEventListener('DOMContentLoaded', () => {
     displayPolls();
@@ -36,51 +81,37 @@ function addPollOption() {
     optionsContainer.appendChild(newOption);
 }
 
-async function handlePollCreation(e) {
+function handlePollCreation(e) {
     e.preventDefault();
     
     const question = document.getElementById('pollQuestion').value.trim();
     const optionInputs = document.querySelectorAll('.pollOption');
     const options = Array.from(optionInputs)
         .map(input => input.value.trim())
-        .filter(value => value !== '');
+        .filter(v => v !== '');
     
-    if (!question) {
-        alert('Please enter a poll question.');
-        return;
-    }
-    
-    if (options.length < 2) {
-        alert('Please add at least two options.');
-        return;
-    }
+    if (!question) return alert('Please enter a poll question.');
+    if (options.length < 2) return alert('Please add at least two options.');
 
-    const formData = new FormData();
-    formData.append('question', question);
-    options.forEach((option, index) => {
-        formData.append(`option_${index}`, option);
-    });
+    const newPoll = {
+        id: Date.now(),
+        question,
+        options,
+        votes: new Array(options.length).fill(0),
+        totalVotes: 0,
+        createdAt: new Date().toISOString()
+    };
 
-    try {
-        const response = await fetch(API_ENDPOINTS.CREATE_POLL, {
-            method: 'POST',
-            body: formData
-        });
+    allPolls.unshift(newPoll);
+    localStorage.setItem("polls", JSON.stringify(allPolls));
 
-        const result = await response.json();
+    form.reset();
+    resetOptionsContainer();
+    displayPolls();
+    updateCommunityStats();
+    window.dispatchEvent(new Event('storage'));
 
-        if (result.success) {
-            form.reset();
-            resetOptionsContainer();
-            await displayPolls();
-            alert('Poll created successfully!');
-        } else {
-            alert(result.message || 'Poll creation failed.');
-        }
-    } catch (error) {
-        console.error('Creation error:', error);
-        alert('A network error occurred during poll creation.');
-    }
+    alert('Poll created successfully!');
 }
 
 function resetOptionsContainer() {
@@ -98,40 +129,16 @@ function getUserVote(pollId) {
     return userVotes[pollId];
 }
 
-async function displayPolls() {
-    pollsList.innerHTML = '<p class="loading-state">Loading polls...</p>';
-    
-    try {
-        const response = await fetch(API_ENDPOINTS.GET_POLLS);
-        const data = await response.json();
-        
-        if (data.error) throw new Error(data.error);
-
-        allPolls = data.polls || [];
-        userVotes = data.userVotes || {};
-        
-    } catch (error) {
-        console.error('Error loading polls:', error);
-        pollsList.innerHTML = '<p class="error-state">Error loading polls. Please check connection.</p>';
-        return;
-    }
-    
+function displayPolls() {
     pollsList.innerHTML = '';
-    
+
     if (allPolls.length === 0) {
         pollsList.innerHTML = '<p class="empty-gallery-state">No active polls yet. Create one above!</p>';
         return;
     }
-    
-    const sortedPolls = allPolls.sort((a, b) => 
-        new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    
-    sortedPolls.forEach(poll => {
-        const pollCard = createPollCard(poll);
-        pollsList.appendChild(pollCard);
-    });
-    
+
+    const sortedPolls = allPolls.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    sortedPolls.forEach(poll => pollsList.appendChild(createPollCard(poll)));
     updateCommunityStats();
 }
 
@@ -149,113 +156,93 @@ function createPollCard(poll) {
     const optionsList = document.createElement('div');
     optionsList.classList.add('poll-options-list');
     
-    poll.options.forEach((option, index) => {
-        const optionDiv = createPollOption(poll, option, index, hasVoted, userVote);
-        optionsList.appendChild(optionDiv);
-    });
+    poll.options.forEach((option, index) => optionsList.appendChild(createPollOption(poll, option, index, hasVoted, userVote)));
     
     const footer = createPollFooter(poll, hasVoted);
     
-    pollDiv.appendChild(question);
-    pollDiv.appendChild(optionsList);
-    pollDiv.appendChild(footer);
-    
+    pollDiv.append(question, optionsList, footer);
     return pollDiv;
 }
 
 function createPollOption(poll, option, index, hasVoted, userVote) {
     const optionDiv = document.createElement('div');
     optionDiv.classList.add('poll-option');
-    
+
     if (hasVoted) {
         optionDiv.classList.add('show-results');
-        if (index === userVote) {
-            optionDiv.classList.add('voted');
-        }
+        if (index === userVote) optionDiv.classList.add('voted');
     }
-    
+
     const optionText = document.createElement('span');
     optionText.classList.add('option-text');
     optionText.textContent = escapeHtml(option);
-    
+
     if (!hasVoted) {
         const voteBtn = document.createElement('button');
         voteBtn.classList.add('vote-btn');
         voteBtn.textContent = 'Vote';
-        voteBtn.addEventListener('click', (e) => {
+        voteBtn.addEventListener('click', e => {
             e.stopPropagation();
             handleVote(poll.id, index);
         });
         optionDiv.appendChild(voteBtn);
     }
-    
+
     optionDiv.appendChild(optionText);
-    
+
     if (hasVoted) {
-        const percentage = poll.totalVotes > 0 
-            ? ((poll.votes[index] / poll.totalVotes) * 100).toFixed(1) 
-            : 0;
-        
+        const percentage = poll.totalVotes > 0 ? ((poll.votes[index] / poll.totalVotes) * 100).toFixed(1) : 0;
         const resultsBar = document.createElement('div');
         resultsBar.classList.add('poll-results-bar');
         resultsBar.style.width = `${percentage}%`;
-        
+
         const resultsText = document.createElement('span');
         resultsText.classList.add('results-text');
         resultsText.textContent = `${poll.votes[index]} (${percentage}%)`;
-        
-        optionDiv.appendChild(resultsBar);
-        optionDiv.appendChild(resultsText);
+
+        optionDiv.append(resultsBar, resultsText);
     }
-    
+
     return optionDiv;
 }
 
 function createPollFooter(poll, hasVoted) {
     const footer = document.createElement('div');
     footer.classList.add('poll-footer');
-    
+
     const totalVotes = document.createElement('span');
     totalVotes.classList.add('total-votes');
     totalVotes.textContent = `${poll.totalVotes} vote${poll.totalVotes !== 1 ? 's' : ''}`;
-    
     footer.appendChild(totalVotes);
-    
+
     if (hasVoted) {
         const votedLabel = document.createElement('span');
         votedLabel.classList.add('voted-label');
         votedLabel.textContent = 'You voted';
         footer.appendChild(votedLabel);
     }
-    
+
     return footer;
 }
 
-async function handleVote(pollId, optionIndex) {
-    if (hasUserVoted(pollId)) {
-        alert('You have already voted on this poll!');
-        return;
+function handleVote(pollId, optionIndex) {
+    if (hasUserVoted(pollId)) return alert('You have already voted on this poll!');
+
+    userVotes[pollId] = optionIndex;
+    localStorage.setItem("userVotes", JSON.stringify(userVotes));
+
+    const poll = allPolls.find(p => p.id === pollId);
+    if (poll) {
+        poll.votes[optionIndex]++;
+        poll.totalVotes++;
+        localStorage.setItem("polls", JSON.stringify(allPolls));
     }
-    
-    try {
-        const response = await fetch(API_ENDPOINTS.RECORD_VOTE, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pollId, optionIndex })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            await displayPolls();
-            alert('Vote recorded successfully!');
-        } else {
-            alert(result.message || 'Vote failed. Please try again.');
-        }
-    } catch (error) {
-        console.error('Vote error:', error);
-        alert('A network error occurred while recording your vote.');
-    }
+
+    displayPolls();
+    updateCommunityStats();
+    window.dispatchEvent(new Event('storage'));
+
+    alert('Vote recorded successfully!');
 }
 
 function escapeHtml(text) {
@@ -264,20 +251,64 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-async function updateCommunityStats() {
-    if (!pollsStatElement) return;
-
-    try {
-        const response = await fetch(API_ENDPOINTS.GET_STATS);
-        const stats = await response.json();
-
-        if (stats && stats.totalPolls !== undefined) {
-            pollsStatElement.textContent = stats.totalPolls;
-        } else {
-            pollsStatElement.textContent = allPolls.length;
-        }
-    } catch (error) {
-        console.warn('Could not fetch poll stats from server. Using local count.', error);
-        pollsStatElement.textContent = allPolls.length;
-    }
+function updateCommunityStats() {
+    const statBadge = document.getElementById("total-polls-badge");
+    if (statBadge) statBadge.textContent = allPolls.length;
 }
+
+
+window.addEventListener("storage", () => {
+    allPolls = JSON.parse(localStorage.getItem("polls")) || [];
+    userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
+    displayPolls();
+    updateCommunityStats();
+});
+
+function handlePollCreation(e) {
+    e.preventDefault();
+    
+    const question = document.getElementById('pollQuestion').value.trim();
+    const optionInputs = document.querySelectorAll('.pollOption');
+    const options = Array.from(optionInputs)
+        .map(input => input.value.trim())
+        .filter(v => v !== '');
+
+    if (!question) return alert('Please enter a poll question.');
+    if (options.length < 2) return alert('Please add at least two options.');
+
+    const newPoll = {
+        id: Date.now(),
+        question,
+        options,
+        votes: new Array(options.length).fill(0),
+        totalVotes: 0,
+        createdAt: new Date().toISOString()
+    };
+
+    allPolls.unshift(newPoll);
+    localStorage.setItem("polls", JSON.stringify(allPolls));
+
+    const communityPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+    communityPosts.unshift({
+        id: newPoll.id,
+        user: "Celine (Admin)",
+        content: question,
+        time: new Date().toLocaleString(),
+        type: "polls",
+        votes: 0,
+        comments: 0
+    });
+    localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
+
+    form.reset();
+    resetOptionsContainer();
+    displayPolls();
+    updateCommunityStats();
+
+    window.dispatchEvent(new Event('storage'));
+
+    alert('Poll created successfully!');
+}
+
+
+

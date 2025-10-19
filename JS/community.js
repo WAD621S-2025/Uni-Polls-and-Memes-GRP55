@@ -1,167 +1,206 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const statMembers = document.getElementById("stat-members");
-    const statDiscussions = document.getElementById("stat-discussions");
-    const statPolls = document.getElementById("stat-polls");
-    const statMemes = document.getElementById("stat-memes");
-    const postForm = document.getElementById("postForm");
-    const postContentInput = document.getElementById("postContent");
-    const feedContainer = document.getElementById("feedContainer");
-    const filterButtons = document.querySelectorAll(".filter-btn");
+  const statMembers = document.getElementById("stat-members");
+  const statDiscussions = document.getElementById("stat-discussions");
+  const statPolls = document.getElementById("stat-polls");
+  const statMemes = document.getElementById("stat-memes");
+  const postForm = document.getElementById("postForm");
+  const postContentInput = document.getElementById("postContent");
+  const feedContainer = document.getElementById("feedContainer");
+  const filterButtons = document.querySelectorAll(".filter-btn");
 
-    const API_ENDPOINTS = {
-        stats: "getCommunityStats.php",
-        posts: "getCommunityFeed.php",
-        createPost: "createCommunityPost.php"
+  function getLocalPosts() {
+    return JSON.parse(localStorage.getItem("communityPosts")) || [];
+  }
+
+  function saveLocalPosts(posts) {
+    localStorage.setItem("communityPosts", JSON.stringify(posts));
+  }
+
+  function createPostCard(post) {
+    const card = document.createElement("div");
+    card.classList.add("post-card", post.type);
+
+    let icon = "";
+    if (post.type === "discussions") icon = "🗣️";
+    else if (post.type === "polls") icon = "📊";
+    else if (post.type === "memes") icon = "😂";
+    else icon = "ℹ";
+
+    card.innerHTML = `
+      <div class="post-header">
+        ${icon} <strong>${post.type}</strong> by <b>${post.user}</b> • ${post.time}
+      </div>
+      <div class="post-body">
+        <p>${post.content}</p>
+      </div>
+      <div class="post-footer">
+        <button class="like-btn">👍 ${post.likes || 13}</button>
+        <button class="comment-btn">💬 ${post.comments || 6}</button>
+      </div>
+    `;
+    return card;
+  }
+
+  function loadFeed(filter = "all") {
+    feedContainer.innerHTML = '<p class="loading-state">Loading recent activity...</p>';
+    const allPosts = getLocalPosts();
+    const filteredPosts =
+      filter === "all"
+        ? allPosts
+        : allPosts.filter((post) => post.type === filter);
+
+    feedContainer.innerHTML = "";
+
+    if (filteredPosts.length === 0) {
+      feedContainer.innerHTML = `<p class="empty-feed-state">No activity found for this filter.</p>`;
+      return;
+    }
+
+    filteredPosts
+      .sort((a, b) => new Date(b.time) - new Date(a.time))
+      .forEach((post) => feedContainer.appendChild(createPostCard(post)));
+  }
+
+  postForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const content = postContentInput.value.trim();
+    if (!content) return;
+
+    const newPost = {
+      id: Date.now(),
+      user: "Celine (Admin)",
+      content,
+      time: new Date().toLocaleString(),
+      type: document.querySelector('input[name="postType"]:checked')?.value || "discussions",
+      likes: 0,
+      comments: 0,
     };
 
-    function createPostCard(post) {
-        const card = document.createElement('div');
-        card.classList.add('post-card', post.type);
-        
-        let headerContent = '';
-        let footerContent = '';
-        let icon = '';
+    const posts = getLocalPosts();
+    posts.push(newPost);
+    saveLocalPosts(posts);
 
-        if (post.type === 'discussions') {
-            icon = '🗣️';
-            headerContent = `${icon} Discussion by **${post.user}** • ${post.time}`;
-            footerContent = `<p class="post-text">${post.content}</p>`;
-        } else if (post.type === 'polls') {
-            icon = '📊';
-            headerContent = `${icon} Poll shared by **${post.user}** • ${post.time}`;
-            footerContent = `<p class="post-text">${post.content}</p><a href="${post.link || 'polls.html'}" class="cta-link">View Poll</a>`;
-        } else if (post.type === 'memes') {
-            icon = '😂';
-            headerContent = `${icon} Meme shared by **${post.user}** • ${post.time}`;
-            footerContent = `<p class="post-text">${post.content}</p><a href="${post.link || 'memes.html'}" class="cta-link">See Meme</a>`;
-        } else {
-            icon = 'ℹ';
-            headerContent = `${icon} Activity by **${post.user}** • ${post.time}`;
-            footerContent = `<p class="post-text">${post.content}</p>`;
-        }
-
-        card.innerHTML = `
-            <div class="post-header">
-                ${headerContent}
-            </div>
-            <div class="post-body">
-                ${footerContent}
-            </div>
-            <div class="post-footer">
-                <button class="like-btn">👍 ${post.likes || 0}</button>
-                <button class="comment-btn">💬 ${post.comments || 0}</button>
-            </div>
-        `;
-        return card;
-    }
-
-    async function loadFeed(filter = 'all') {
-        feedContainer.innerHTML = '<p class="loading-state">Loading recent activity...</p>';
-        
-        try {
-            const res = await fetch(`${API_ENDPOINTS.posts}?filter=${filter}`);
-            
-            if (!res.ok) {
-                throw new Error(`Server returned status: ${res.status}`);
-            }
-
-            const filteredPosts = await res.json(); 
-
-            feedContainer.innerHTML = '';
-            
-            if (!filteredPosts || filteredPosts.length === 0) {
-                feedContainer.innerHTML = `<p class="empty-feed-state">No activity found for this filter.</p>`;
-                return;
-            }
-
-            filteredPosts.forEach(post => {
-                feedContainer.appendChild(createPostCard(post));
-            });
-
-        } catch (error) {
-            console.error("Error loading feed:", error);
-            feedContainer.innerHTML = `<p class="error-state">Error loading feed. Please check the network connection or ${API_ENDPOINTS.posts}.</p>`;
-        }
-    }
-
-    postForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const content = postContentInput.value.trim();
-        if (!content) return;
-
-        const data = new FormData(postForm);
-        
-        const postButton = postForm.querySelector('.submit-post-btn');
-        postButton.disabled = true;
-        postButton.textContent = "Posting...";
-
-        try {
-            const res = await fetch(API_ENDPOINTS.createPost, {
-                method: "POST", 
-                body: data 
-            });
-            
-            const newPostData = await res.json();
-            
-            if (newPostData && newPostData.id) {
-                alert("Post created successfully!");
-                postForm.reset();
-                
-                const newCard = createPostCard(newPostData);
-                feedContainer.prepend(newCard); 
-                
-                loadStats();
-                
-            } else if (newPostData && newPostData.error) {
-                 alert(`Post failed: ${newPostData.error}`);
-            } else {
-                alert("Post failed: Unknown server error.");
-            }
-        } catch (error) {
-            console.error("Post creation error:", error);
-            alert("An unexpected error occurred while posting.");
-        } finally {
-            postButton.disabled = false;
-            postButton.textContent = "Post";
-        }
-    });
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const filter = e.target.getAttribute('data-filter');
-            
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-
-            loadFeed(filter);
-        });
-    });
-    
-    async function loadStats() {
-        try {
-            const res = await fetch(API_ENDPOINTS.stats);
-            
-            if (!res.ok) {
-                throw new Error('Failed to fetch stats');
-            }
-            
-            const stats = await res.json();
-
-            statMembers.textContent = stats.members.toLocaleString() || '0';
-            statDiscussions.textContent = stats.discussions.toLocaleString() || '0';
-            statPolls.textContent = stats.polls.toLocaleString() || '0';
-            statMemes.textContent = stats.memes.toLocaleString() || '0';
-
-        } catch (error) {
-            console.error("Error loading stats:", error);
-            statMembers.textContent = '';
-            statDiscussions.textContent = '';
-            statPolls.textContent = '';
-            statMemes.textContent = '';
-        }
-    }
-
+    feedContainer.prepend(createPostCard(newPost));
+    postForm.reset();
     loadStats();
-    loadFeed('all');
+  });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const filter = e.target.getAttribute("data-filter");
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      e.target.classList.add("active");
+      loadFeed(filter);
+    });
+  });
+
+  function loadStats() {
+    const posts = getLocalPosts();
+    statMembers.textContent = 107; 
+    statDiscussions.textContent = posts.filter((p) => p.type === "discussions").length;
+    statPolls.textContent = posts.filter((p) => p.type === "polls").length;
+    statMemes.textContent = posts.filter((p) => p.type === "memes").length;
+  }
+
+  loadStats();
+  loadFeed("all");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const communityGallery = document.getElementById("communityGallery");
+    const statMemes = document.getElementById("stat-memes");
+
+    function loadCommunityMemes() {
+        const savedMemes = JSON.parse(localStorage.getItem("memes")) || [];
+        communityGallery.innerHTML = "";
+
+        if (savedMemes.length > 0) {
+            savedMemes.forEach(meme => {
+                const card = document.createElement("div");
+                card.classList.add("meme-card");
+
+                const img = document.createElement("img");
+                img.src = meme.image_path;
+                img.alt = meme.caption || "Meme";
+                img.classList.add("meme-image");
+
+                const caption = document.createElement("p");
+                caption.textContent = meme.caption || "";
+                caption.classList.add("meme-caption");
+
+                card.appendChild(img);
+                card.appendChild(caption);
+                communityGallery.prepend(card);
+            });
+        } else {
+            communityGallery.innerHTML = `<div class="empty-gallery-state">No memes yet.</div>`;
+        }
+
+        if (statMemes) statMemes.textContent = savedMemes.length;
+    }
+
+    loadCommunityMemes();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const communityGallery = document.getElementById("communityGallery");
+    const statMemes = document.getElementById("stat-memes");
+
+    function loadCommunityMemes() {
+        const savedMemes = JSON.parse(localStorage.getItem("memes")) || [];
+        communityGallery.innerHTML = "";
+
+        if (savedMemes.length > 0) {
+            savedMemes.forEach(meme => {
+                const card = document.createElement("div");
+                card.classList.add("meme-card");
+
+                const img = document.createElement("img");
+                img.src = meme.image_path;
+                img.alt = meme.caption || "Meme";
+                img.classList.add("meme-image");
+
+                const caption = document.createElement("p");
+                caption.textContent = meme.caption || "";
+                caption.classList.add("meme-caption");
+
+                card.appendChild(img);
+                card.appendChild(caption);
+                communityGallery.prepend(card);
+            });
+        } else {
+            communityGallery.innerHTML = `<div class="empty-gallery-state">No memes yet.</div>`;
+        }
+
+        if (statMemes) statMemes.textContent = savedMemes.length;
+    }
+
+    window.addEventListener("storage", (e) => {
+        if (e.key === "memes") loadCommunityMemes();
+    });
+
+    loadCommunityMemes();
+});
+
+function loadFeed(filter = "all") {
+    feedContainer.innerHTML = '<p class="loading-state">Loading recent activity...</p>';
+    const allPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+    const filteredPosts =
+        filter === "all" ? allPosts : allPosts.filter(post => post.type === filter);
+
+    feedContainer.innerHTML = "";
+
+    if (filteredPosts.length === 0) {
+        feedContainer.innerHTML = `<p class="empty-feed-state">No activity found for this filter.</p>`;
+        return;
+    }
+
+    filteredPosts
+        .sort((a, b) => new Date(b.time) - new Date(a.time))
+        .forEach(post => feedContainer.appendChild(createPostCard(post)));
+}
+
+window.addEventListener("storage", () => {
+    loadFeed("all");   
 });

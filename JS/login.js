@@ -1,17 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
+    if (loginForm) loginForm.addEventListener('submit', handleLogin);
 });
 
-async function handleLogin(event) {
+function handleLogin(event) {
     event.preventDefault();
 
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-    const loginForm = document.getElementById('loginForm');
 
     const email = emailInput.value.trim();
     const password = passwordInput.value;
@@ -21,34 +17,29 @@ async function handleLogin(event) {
         return;
     }
 
-    const data = new FormData(loginForm);
-    const submitButton = loginForm.querySelector('button[type="submit"]');
+    // Simulate a successful login
+    const user = {
+        name: "John Doe",
+        username: "johndoe",
+        email: email,
+        bio: "This is my bio",
+        phone: "1234567890",
+        campus: "Main Campus",
+        major: "Computer Science",
+        year: "3",
+        profilePhoto: ""
+    };
 
-    submitButton.disabled = true;
-    submitButton.textContent = 'Logging in...';
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('email', user.email);
+    localStorage.setItem('bio', user.bio);
+    localStorage.setItem('phone', user.phone);
+    localStorage.setItem('campus', user.campus);
+    localStorage.setItem('major', user.major);
+    localStorage.setItem('year', user.year);
+    if (user.profilePhoto) localStorage.setItem('profilePhoto', user.profilePhoto);
 
-    try {
-        const response = await fetch('login.php', {
-            method: 'POST',
-            body: data
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            handleLoginSuccess();
-        } else {
-            alert(result.message || "Login failed. Check your credentials.");
-        }
-    } catch (error) {
-        console.error('Login Error:', error);
-        alert("A network error occurred. Please try again.");
-    } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Login';
-    }
-}
-
-function handleLoginSuccess() {
-    window.location.href = 'index.html'; 
+    alert("Login successful!");
+    window.location.href = 'index.html';
 }

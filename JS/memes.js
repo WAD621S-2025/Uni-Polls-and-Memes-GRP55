@@ -1,93 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("memeForm");
     const gallery = document.getElementById("memeGallery");
+    const fileInput = document.getElementById("memeFile");
+    const captionInput = document.getElementById("memeCaption");
 
-    async function loadMemes() {
-        try {
-            const res = await fetch("getMemes.php");
-            const memes = await res.json(); 
+    function loadMemes() {
+        const savedMemes = JSON.parse(localStorage.getItem("memes")) || [];
+        gallery.innerHTML = "";
 
-            gallery.innerHTML = "";
-
-            if (!memes || memes.length === 0) {
-                gallery.innerHTML = `<div class="empty-gallery-state">No memes yet. Upload one!</div>`;
-                return;
-            }
-
-            memes.forEach(meme => addMemeCard(meme));
-        } catch (err) {
-            console.error("Error loading memes:", err);
-            gallery.innerHTML = `<div class="empty-gallery-state">Could not load memes.</div>`;
+        if (savedMemes.length > 0) {
+            savedMemes.forEach(meme => addMemeCard(meme, gallery));
+        } else {
+            gallery.innerHTML = `<div class="empty-gallery-state">No memes yet. Upload one!</div>`;
         }
     }
 
-    function addMemeCard(meme) {
+    function addMemeCard(meme, container) {
         const card = document.createElement("div");
         card.classList.add("meme-card");
 
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("meme-image-container");
-
         const img = document.createElement("img");
-        img.classList.add("meme-image");
         img.src = meme.image_path;
         img.alt = meme.caption || "Meme";
-
-        imgContainer.appendChild(img);
-
-        const content = document.createElement("div");
-        content.classList.add("meme-content");
+        img.classList.add("meme-image");
 
         const caption = document.createElement("p");
-        caption.classList.add("meme-caption");
         caption.textContent = meme.caption || "";
+        caption.classList.add("meme-caption");
 
-        content.appendChild(caption);
-        card.appendChild(imgContainer);
-        card.appendChild(content);
-
-        gallery.prepend(card);
+        card.appendChild(img);
+        card.appendChild(caption);
+        container.prepend(card);
     }
 
-    form.addEventListener("submit", async (e) => {
+    form?.addEventListener("submit", (e) => {
         e.preventDefault();
-        const data = new FormData(form);
-        const submitButton = form.querySelector('button[type="submit"]');
+        if (!fileInput.files[0]) return alert("Select an image.");
 
-        submitButton.disabled = true;
-        submitButton.textContent = "Uploading...";
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const newMeme = {
+                id: Date.now(),
+                image_path: event.target.result,
+                caption: captionInput.value.trim()
+            };
 
-        try {
-            const res = await fetch("uploadMeme.php", {
-                method: "POST",
-                body: data
+            const savedMemes = JSON.parse(localStorage.getItem("memes")) || [];
+            savedMemes.unshift(newMeme);
+            localStorage.setItem("memes", JSON.stringify(savedMemes));
+
+            addMemeCard(newMeme, gallery);
+
+            const communityPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+            communityPosts.unshift({
+                id: newMeme.id,
+                user: "Celine (Admin)",
+                content: newMeme.caption || "Shared a meme",
+                time: new Date().toLocaleString(),
+                type: "memes",
+                likes: 0,
+                comments: 0
             });
+            localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
 
-            const result = await res.json();
+            window.dispatchEvent(new Event('storage'));
 
-            if (result && result.image_path) {
-                alert("Meme uploaded successfully!");
-                form.reset();
-
-                const newMeme = {
-                    image_path: result.image_path,
-                    caption: result.caption || ''
-                };
-
-                addMemeCard(newMeme);
-
-            } else {
-                const errorMessage = result.error || "Upload failed.";
-                alert("Upload failed: " + errorMessage);
-            }
-
-        } catch (err) {
-            console.error("Upload error:", err);
-            alert("Something went wrong while uploading your meme.");
-        } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = "Upload Meme";
-        }
+            form.reset();
+        };
+        reader.readAsDataURL(fileInput.files[0]);
     });
 
     loadMemes();

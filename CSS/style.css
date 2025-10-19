@@ -358,23 +358,17 @@ body.darkmode .pupil {
   transform: translateX(5px);
 }
 
-/* Active/Click state */
+
 .feature-card:active {
   transform: translateY(-8px) scale(0.98);
 }
 
-/* Focus state for accessibility */
 .feature-card-link:focus {
   outline: 3px solid var(--primary);
   outline-offset: 5px;
   border-radius: 15px;
 }
 
-.feature-card-link:focus .feature-card {
-  border-color: var(--primary);
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .features {
     grid-template-columns: 1fr;
@@ -922,7 +916,6 @@ body.darkmode footer {
 .stat-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(124, 106, 155, 0.2);
-  border-color: var(--primary);
 }
 
 .stat-icon {
@@ -1146,6 +1139,43 @@ body.darkmode footer {
   background: rgba(124, 106, 155, 0.1);
 }
 
+.like-btn{
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  font-family: 'Ronzino', sans-serif;
+
+}
+
+.like-btn:hover{
+    color: var(--primary);
+    background: rgba(124, 106, 155, 0.1);
+
+}
+
+.comment-btn{
+    background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  font-family: 'Ronzino', sans-serif;
+}
+
+.comment-btn:hover{
+    color: var(--primary);
+  background: rgba(124, 106, 155, 0.1);
+
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .community-main {
@@ -1261,16 +1291,14 @@ body.darkmode footer {
 }
 
 /*Memes*/
-/* Custom Styles for Memes Page */
 
 .memes-main {
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center; /* Center the main sections */
+    text-align: center;
 }
 
-/* --- Upload Section --- */
 .upload-section {
     background: var(--card-bg);
     padding: 2.5rem;
@@ -1317,7 +1345,6 @@ body.darkmode footer {
     box-shadow: 0 0 0 3px rgba(136, 112, 146, 0.2);
 }
 
-/* Style the file input button (often difficult, but this targets the container) */
 #imageInput {
     padding: 0.8rem 1rem;
     cursor: pointer;
@@ -1341,7 +1368,6 @@ body.darkmode footer {
     box-shadow: 0 5px 15px var(--shadow);
 }
 
-/* --- Gallery Section --- */
 .gallery-section h2 {
     color: var(--text-main);
     font-size: 2rem;
@@ -1377,7 +1403,7 @@ body.darkmode footer {
 
 .meme-image-container {
     width: 100%;
-    height: 300px; /* Fixed height for consistent look */
+    height: 300px; 
     overflow: hidden;
     background: var(--bg);
 }
@@ -1385,7 +1411,7 @@ body.darkmode footer {
 .meme-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures the whole image is visible */
+    object-fit: contain; 
     transition: transform 0.5s ease;
 }
 
@@ -1441,10 +1467,9 @@ body.darkmode footer {
 }
 
 .action-icon-btn.liked {
-    color: #ff6b6b; /* A distinct color for 'liked' state */
+    color: #ff6b6b; 
 }
 
-/* Fallback/Empty state */
 .empty-gallery-state {
     color: var(--text-light);
     padding: 4rem 1rem;
@@ -1466,7 +1491,7 @@ body.darkmode footer {
     }
 
     .meme-image-container {
-        height: auto; /* Allow image to define height on smaller screens */
+        height: auto; 
         max-height: 400px;
     }
 
@@ -1479,6 +1504,7 @@ body.darkmode footer {
     }
 }
 
+/*Polls*/
 .polls-main {
   padding: 3rem 2rem;
   max-width: 1200px;
@@ -1569,7 +1595,6 @@ body.darkmode footer {
   box-shadow: 0 5px 15px var(--shadow);
 }
 
-/* ========== POLLS LIST ========== */
 .polls-list-section h2 {
   color: var(--text-main);
   font-size: 1rem;
@@ -1591,16 +1616,12 @@ body.darkmode footer {
   transition: all 0.3s ease;
 }
 
-
-
-/* Poll question inside card */
 .poll-question h3 {
   color: var(--primary);
   font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
-/* Poll options inside card */
 .poll-options-list {
   display: flex;
   flex-direction: column;
@@ -1645,7 +1666,6 @@ background: var(--primary);
   transition: 0.3s;
 }
 
-/* Poll footer */
 .poll-footer {
   display: flex;
   justify-content: space-between;
@@ -1661,7 +1681,6 @@ background: var(--primary);
   font-weight: 600;
 }
 
-/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
     .polls-main {
         padding: 2rem 1rem;
@@ -1691,8 +1710,6 @@ background: var(--primary);
 }
 
 /*Sign up*/
-/* Custom Styles for Sign Up Page (signup.css) */
-
 .signup-main {
   min-height: 80vh;
   display: flex;
@@ -1727,7 +1744,7 @@ background: var(--primary);
 }
 
 .input-group {
-  margin-bottom: 1.2rem; /* Slightly tighter spacing for more fields */
+  margin-bottom: 1.2rem; 
 }
 
 .input-group label {
@@ -1759,8 +1776,7 @@ background: var(--primary);
 .signup-btn {
   width: 100%;
   padding: 1rem;
-  /* Uses the same vibrant gradient as the login button */
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  background:var(--primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -1795,7 +1811,6 @@ background: var(--primary);
   color: var(--accent);
 }
 
-/* Responsiveness */
 @media (max-width: 480px) {
   .signup-container {
     padding: 2rem;

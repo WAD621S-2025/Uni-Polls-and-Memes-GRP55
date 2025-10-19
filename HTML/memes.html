@@ -41,11 +41,13 @@
   <main class="memes-main">
     <section class="upload-section">
       <h2>Upload Your Meme</h2>
-      <form id="memeForm" enctype="multipart/form-data">
-        <input type="text" id="caption" name="caption" placeholder="Enter a caption..." required>
-        <input type="file" id="imageInput" name="image" accept="image/*" required>
-        <button type="submit">Upload Meme</button>
-      </form>
+  <form id="memeForm">
+    <input type="file" id="memeFile" accept="image/*" required>
+    <input type="text" id="memeCaption" placeholder="Caption (optional)">
+    <button type="submit">Upload Meme</button>
+  </form>
+<div id="memeGallery"></div>
+
     </section>
 
     <section class="gallery-section">
