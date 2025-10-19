@@ -17,7 +17,6 @@ function handleLogin(event) {
         return;
     }
 
-    // Simulate a successful login
     const user = {
         name: "John Doe",
         username: "johndoe",

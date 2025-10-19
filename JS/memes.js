@@ -39,11 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const reader = new FileReader();
         reader.onload = function(event) {
+           const username = localStorage.getItem("username") || "Anonymous";
             const newMeme = {
-                id: Date.now(),
-                image_path: event.target.result,
-                caption: captionInput.value.trim()
-            };
+            image_path: event.target.result,
+            caption: captionInput.value.trim(),
+            createdBy: username
+                    };
+
 
             const savedMemes = JSON.parse(localStorage.getItem("memes")) || [];
             savedMemes.unshift(newMeme);

@@ -1,55 +1,68 @@
-Campus Polls & Meme Platform
+Catastrophe – Campus Polls & Memes
 
-A fun and interactive web application designed for university students to engage through polls and memes. The platform promotes social interaction, creativity, and quick feedback within the campus community.
- Overview
-The Campus Polls & Meme Platform combines entertainment and interaction by allowing students to:
-Create and vote on campus polls.
-Share and browse memes
-See poll results update in real time
-It provides a refreshing, informal space for student engagement beyond traditional academic platforms.
+Catastrophe is a web application that let's university students to create polls, share memes, and interact with the campus community. Users can manage their profile, track their contributions, and engage with content in a simple, interactive interface.
 
- Objectives
-General Objective:
-Develop a user-friendly web application for students to create, share, and interact with polls and memes.
-Specific Objectives:
-Enable users to create and vote in polls.
-Allow image uploads for meme sharing.
-Display live poll results.
-Implement secure user authentication.
-Store user, poll, and meme data in a database.
+Features:
+-User Profile
+-Upload profile photo
+-Edit personal information (name, username, email, phone, institution, course, year, bio)
+-View statistics: polls created, memes shared, votes cast, followers
 
- Key Features
- Poll Creation: Users can create polls with multiple options.
+Polls
+-Create polls with multiple options
+-Vote on polls and view results
+-Polls are saved to localStorage and reflected in the community feed
 
- Meme Sharing: Upload and share memes with captions.
+Memes
+-Upload images with optional captions
+-View latest memes in a gallery format
+-Meme sharing reflected in the profile stats
 
- Live Updates: Poll results update instantly as votes come in.
+Community Feed
+-Post discussions, polls, or memes
+-Filter feed by post type (discussions, polls, memes, all)
+-Displays likes and comments (placeholder numbers)
 
- User Accounts: Secure login and registration system.
-
- Database Storage: Polls, memes, and user data saved in MySQL.
-
+Dark Mode
+-Toggle between light and dark themes using the dark mode button
 Technologies Used
-Frontend:
-HTML – Page structure
-SS – Styling and layout
-JavaScript – Interactivity and real-time update
-Backend:
-PHP – Server-side logic and authentication
-MySQL – Database for storing users, polls, votes, and memes
 
-Tools:
-VS Code, GitHub, XAMPP
-System Design
-Main Pages:
-Homepage: Feed of latest polls and memes.
-Polls Page: Displays all active polls.
-Memes Page: Gallery of uploaded memes.
-Create Poll Page: Form to make new polls.
+Folder Structure
+Catastrophe/
+│
+├── CSS/
+│   └── style.css         
+ # All css for files im this file
+│
+├── JS/
+│   ├── profile.js         
+# Profile 
+│   ├── polls.js           
+# Poll creation and voting logic
+│   ├── memes.js           
+# Meme upload and gallery logic
+│   └── darkmode.js        
+# Dark mode toggle
+│
+├── images/
+│   └── logo.png          
+ # Logo and default profile images
+│
+├── index.html            
+ # Homepage
+├── profile.html           
+# User profile page
+├── polls.html             
+# Poll creation & viewing page
+├── memes.html             
+# Meme upload & gallery page
+├── community.html         
+# Community feed page
+└── README.md              
+# Project documentation
 
-Upload Meme Page: Form to upload memes.
 
-Login / Sign-Up Page: User authentication.
-
- Target Users
-University and college students who want to share ideas, opinions, and humor in a casual, creative environment.
+Team:
+G Kuhatumwa    244282221
+M Terna-Nember 223113778 
+C Gwande       224008773

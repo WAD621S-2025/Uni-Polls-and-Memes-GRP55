@@ -1,5 +1,4 @@
 /*global*/
-
 * {
   margin: 0;
   padding: 0;
@@ -284,7 +283,6 @@ body.darkmode .pupil {
   overflow: hidden;
 }
 
-/* Hover effect */
 .feature-card-link:hover .feature-card {
   transform: translateY(-10px);
   box-shadow: 0 15px 40px rgba(96, 73, 105, 0.473);
@@ -388,7 +386,6 @@ body.darkmode .pupil {
     padding: 0.7rem 1.2rem;
   }
 }
-/* Footer */
 footer {
   text-align: center;
   padding: 2rem;
@@ -811,7 +808,6 @@ body.darkmode footer {
   opacity: 0.3;
 }
 
-/* Responsiveness */
 @media (max-width: 768px) {
   .logo span {
     font-size: 1.6rem;
@@ -1176,7 +1172,6 @@ body.darkmode footer {
 
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .community-main {
     padding: 1rem;
