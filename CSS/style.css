@@ -284,11 +284,10 @@ body.darkmode .pupil {
   overflow: hidden;
 }
 
-/* Hover effect for clickable cards */
+/* Hover effect */
 .feature-card-link:hover .feature-card {
   transform: translateY(-10px);
   box-shadow: 0 15px 40px rgba(96, 73, 105, 0.473);
-  border-color: var(--primary);
 }
 
 .feature-card::before {
@@ -299,7 +298,6 @@ body.darkmode .pupil {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(136, 112, 146, 0.1), transparent);
-  transition: left 0.5s ease;
 }
 
 .feature-card-link:hover .feature-card::before {
@@ -339,11 +337,7 @@ body.darkmode .pupil {
   transition: transform 0.3s ease;
 }
 
-.feature-card-link:hover .feature-card img {
-  transform: scale(1.1) rotate(5deg);
-}
 
-/* Call to Action Button in Cards */
 .card-action {
   display: inline-block;
   color: var(--primary);
@@ -1487,7 +1481,6 @@ body.darkmode footer {
 }
 
 /*Polls*/
-/* Custom Styles for Polls Page (polls.css) */
 
 .polls-main {
     padding: 3rem 2rem;
@@ -1496,12 +1489,11 @@ body.darkmode footer {
     text-align: center; 
 }
 
-/* --- Create Poll Section --- */
 .create-poll-section {
     background: var(--card-bg);
     padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 8px 30px var(--shadow);
+    box-shadow: 0 10px 30px var(--shadow);
     margin-bottom: 4rem;
     border: 2px solid var(--border-light);
     transition: all 0.3s ease;
@@ -1533,6 +1525,8 @@ body.darkmode footer {
     background: var(--bg);
     color: var(--text-main);
     transition: all 0.3s;
+    font-style: italic;
+
 }
 
 #pollQuestion:focus,
@@ -1550,7 +1544,6 @@ body.darkmode footer {
 }
 
 #addOptionBtn {
-    /* Style the secondary action button */
     padding: 0.8rem 1.5rem;
     background: var(--secondary);
     color: var(--text-main);
@@ -1564,24 +1557,21 @@ body.darkmode footer {
 }
 
 #addOptionBtn:hover {
-    background: var(--accent);
-    color: white;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow);
 }
 
 .create-btn {
-    /* Style the primary submission button */
-    padding: 1rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
+    padding: 0.8rem 1.5rem;
+    background: var(--secondary);
+    color: var(--text-main);
+    border: 2px solid var(--secondary);
     border-radius: 10px;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
     font-family: 'Ronzino', sans-serif;
-    margin-top: 0.5rem;
 }
 
 .create-btn:hover {
@@ -1589,7 +1579,6 @@ body.darkmode footer {
     box-shadow: 0 5px 15px var(--shadow);
 }
 
-/* --- Active Polls Section --- */
 .polls-list-section h2 {
     color: var(--text-main);
     font-size: 2rem;
@@ -1605,7 +1594,22 @@ body.darkmode footer {
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 5rem;
+    color: var(--text-main)
+    
 }
+
+.polls-list > div {
+  flex: 1 1 calc(33.333% - 2rem);
+  background: var(--secondary);
+  color: #fff;  
+  background: var(--secondary);
+  color: var(--primary);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
 
 .poll-card {
     background: var(--card-bg);
@@ -1629,10 +1633,52 @@ body.darkmode footer {
     transition: color 0.3s ease;
 }
 
+.poll-option {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  text-align: center;
+}
+
+.poll-option:hover {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.poll-option:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.poll-option.selected {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  box-shadow: 0 0 0 3px rgba(200,182,226,0.6);
+}
+
+
 .poll-options-list {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: var(--bg);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+   
 }
 
 .poll-option {
@@ -1652,6 +1698,7 @@ body.darkmode footer {
     border-color: var(--primary);
     box-shadow: 0 0 5px rgba(124, 106, 155, 0.4);
 }
+
 
 .vote-btn {
     padding: 0.6rem 1.2rem;
@@ -1720,7 +1767,8 @@ body.darkmode footer {
 }
 
 .poll-option.show-results .vote-btn {
-    display: none;
+    display:grid;
+
 }
 
 .poll-footer {

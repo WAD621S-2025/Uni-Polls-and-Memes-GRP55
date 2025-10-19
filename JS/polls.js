@@ -34,7 +34,7 @@ function displayPolls() {
   const polls = JSON.parse(localStorage.getItem('polls') || '[]');
   pollsList.innerHTML = '';
   if (polls.length === 0) {
-    pollsList.innerHTML = '<p>No active polls yet. Create one!</p>';
+    pollsList.innerHTML = '<p>No active polls yet? Create one!</p>';
     return;
   }
 
